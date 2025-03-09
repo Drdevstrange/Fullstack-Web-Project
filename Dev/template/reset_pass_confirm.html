@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Confirm Reset | {% endblock %}
+
+{% block content %}
+<section class="hero container">
+    <br>
+    <!-- <h2 class="hero__subtitle">Hi, I'm Dev 👋</h2> -->
+    <!-- <h1 class="hero__title">
+      # Hash
+    </h1> -->
+    <p class="hero__description">
+      <!-- A Social Media Application with some <strong>Unique Features</strong> web
+      developer and <strong>UI/UX</strong>
+      enthusiast specialized in building stunning pixel-perfect interactive
+      websites/applications. -->
+        <div class="wrapper">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+                <h1 class="wh1">Reset Password</h1>
+                <div class="input-box">
+                    <input type="password" name="new_password1" placeholder="New Password" id="id_new_password1" required>
+                    <img class="icnlog" id="eyeicon1" src="{%static 'images/closedeye.svg'%}" alt="">
+                </div>
+                <div class="input-box">
+                    <input type="password" name="new_password2" placeholder="Confirm Password" required id="id_new_password2" required>
+                    <img class="icnlog" id="eyeicon3" src="{%static 'images/closedeye.svg'%}" alt="">
+                </div>
+                <br>
+                <button type="submit" class="hero__btn btn">Submit</button>
+                <div class="register-link">
+                    <p>Revert Changes? <a href="{% url 'signin' %}">Cancel</a></p>
+                </div>
+                {% if form.error %}
+                  <div>
+                    {% for e in form.error %}
+                       <p class="feed-signin-error">{{ e }}</p>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+            </form>
+        </div>
+    </p>
+    <br>
+</section>
+<script>
+    let eyeicon1 = document.getElementById("eyeicon1")
+    let oldpassword = document.getElementById("id_new_password1")
+
+    eyeicon1.onclick = function(){
+      if(oldpassword.type == "password"){
+        oldpassword.type = "text";
+        eyeicon1.src="{%static 'images/openeye.svg'%}";
+      }
+      else{
+        oldpassword.type = "password";
+        eyeicon1.src="{%static 'images/closedeye.svg'%}";
+      }
+    }
+    
+    let eyeicon3 = document.getElementById("eyeicon3")
+    let newpassword2 = document.getElementById("id_new_password2")
+
+    eyeicon3.onclick = function(){
+      if(newpassword2.type == "password"){
+        newpassword2.type = "text";
+        eyeicon3.src="{%static 'images/openeye.svg'%}";
+      }
+      else{
+        newpassword2.type = "password";
+        eyeicon3.src="{%static 'images/closedeye.svg'%}";
+      }
+    }
+</script>
+{% endblock%}

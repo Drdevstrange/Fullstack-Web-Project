@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Password Changed | {% endblock %}
+
+{% block content %}
+<section class="hero container">
+    <br>
+    <!-- <h2 class="hero__subtitle">Hi, I'm Dev 👋</h2> -->
+    <!-- <h1 class="hero__title">
+      # Hash
+    </h1> -->
+    <p class="hero__description">
+      <!-- A Social Media Application with some <strong>Unique Features</strong> web
+      developer and <strong>UI/UX</strong>
+      enthusiast specialized in building stunning pixel-perfect interactive
+      websites/applications. -->
+        <div class="wrapper">
+            <h1 class="wh1">Password Reset Complete</h1>
+            <p style="font-size: 16px; margin-top: 10px;">Your password has been reset</p>
+            <p style="font-size: 16px; margin-top: 10px;">Log in now.</p>
+            <br>
+        
+            <br>
+
+            <a href="{% url 'signin' %}"><button type="button" class="hero__btn btn">Log in</button></a>
+            <!-- <div class="remember-forgot">
+                <label><input type="checkbox">Remember Me</label>
+                <a href="#">Forgot Password</a>
+            </div> -->
+        </div>
+    </p>
+    <br>
+</section>
+{% endblock %}
