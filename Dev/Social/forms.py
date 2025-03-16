@@ -1,3 +1,4 @@
+import time
 from django import forms
 from .models import *
 # from django.contrib.auth.forms import UserCreationForm
@@ -16,34 +17,44 @@ from .models import *
 
 
 class NewPostForm(forms.ModelForm):
-    picture = forms.ImageField(required=True)
-    caption = forms.CharField(widget=forms.Textarea(attrs={'class':'post-input', 'placeholder': 'Caption', 'rows' : '1'}), required=True)
-    tag = forms.CharField(widget=forms.TextInput(attrs={'class': 'tag-input', 'placeholder': '# Tags'}), required=True)
-    picture = forms.ImageField(required=True, widget=forms.ClearableFileInput(attrs={'class': 'image-input'}))
+    picture = forms.ImageField(
+        required=True, widget=forms.ClearableFileInput(attrs={'class': 'image-input'}))
+    video = forms.FileField(required=True)
+    caption = forms.CharField(widget=forms.Textarea(
+        attrs={'class': 'post-input', 'placeholder': 'Caption', 'rows': '1'}), required=False)
+    tag = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'tag-input', 'placeholder': '# Tags'}), required=False)
+
     class Meta:
         model = Post
-        fields = ['picture', 'caption', 'tag']
+        fields = ['picture', 'video', 'caption', 'tag']
 
 
 class CommentForm(forms.ModelForm):
     class Meta:
-        model=Comment
+        model = Comment
         fields = ['text']
+
 
 class TweetForm(forms.ModelForm):
     class Meta:
-        model=Tweet
-        fields=['tweet']
-        
+        model = Tweet
+        fields = ['tweet']
+
+
 class ReplyForm(forms.ModelForm):
     class Meta:
-        model=Reply
-        fields=['reply']
+        model = Reply
+        fields = ['reply']
+
 
 class CreateProfileForm(forms.ModelForm):
-    full_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder' : 'Full Name'}), required=False)
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Username'}), required=True)
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'input', 'placeholder': 'Email'}), required=True)
+    full_name = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Full Name'}), required=False)
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input', 'placeholder': 'Username'}), required=True)
+    email = forms.EmailField(widget=forms.EmailInput(
+        attrs={'class': 'input', 'placeholder': 'Email'}), required=True)
 
     class Meta:
         model = Profile
@@ -59,7 +70,7 @@ class CreateProfileForm(forms.ModelForm):
                 raise forms.ValidationError('Invalid image file.')
 
         return image
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Populate the fields with initial values if instance is provided
@@ -81,10 +92,15 @@ class CreateProfileForm(forms.ModelForm):
 
         return profile
 
+
 class EditProfileForm(forms.ModelForm):
-    full_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder' : 'Full Name'}), required=False)
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Username'}), required=True)
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'input', 'placeholder': 'Email'}), required=True)
+    full_name = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Full Name'}), required=False)
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input', 'placeholder': 'Username'}), required=True)
+    email = forms.EmailField(widget=forms.EmailInput(
+        attrs={'class': 'input', 'placeholder': 'Email'}), required=True)
+
     class Meta:
         model = Profile
         fields = ['image', 'full_name', 'bio']
@@ -101,6 +117,7 @@ class EditProfileForm(forms.ModelForm):
                 raise forms.ValidationError('Invalid image file.')
 
         return image
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Populate the username and email fields with the current values
@@ -121,6 +138,5 @@ class EditProfileForm(forms.ModelForm):
 
         return profile
 
-import time
 
 time.ctime()
