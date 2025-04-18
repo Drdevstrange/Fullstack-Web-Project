@@ -4,7 +4,7 @@
 
 {% block content %}
 <section class="hero container">
-    <form method="post" class="newpost" enctype="multipart/form-data">
+    <form method="POST" class="newpost" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="write-post-container">
             <h2 class="post-heading">Create Post</h2>
@@ -62,11 +62,20 @@
             existingImage.remove();
         }
 
-        // Create new image
+        // Create new image or video
         var newImage = document.createElement('img');
-        newImage.src = URL.createObjectURL(input.files[0]);
-        newImage.classList.add('preview-image');
-        previewContainer.appendChild(newImage);
+        var newVideo = document.createElement('video');
+        var file = input.files[0];
+        var fileType = file ? file.type.split('/')[0] : '';
+        if (fileType === 'image') {
+            newImage.src = URL.createObjectURL(input.files[0]);
+            newImage.classList.add('preview-image');
+            previewContainer.appendChild(newImage);
+        } else if (fileType === 'video') {
+            newVideo.src = URL.createObjectURL(input.files[0]);
+            newVideo.classList.add('preview-video');
+            previewContainer.appendChild(newVideo);
+        }
     }
 
     function triggerFileInput() {

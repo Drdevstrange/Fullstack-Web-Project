@@ -46,17 +46,21 @@
         {{profile.user.tweet_set.all.count}}
       </div>
     </a>
-    <div class="followers__count">
-      <h3 class="">Followers</h3>
-      {{profile.followers.all.count}}
-      <!-- {% for i in profile.following.all %}
-        <p>{{i}}</p>
-        {% endfor %}   -->
-    </div>
-    <div class="following__count">
-      <h3 class="">Following</h3>
-      {{profile.following.all.count}}
-    </div>
+    <a style="text-decoration: none; color: var(--clr-light);">
+      <div class="followers__count">
+        <h3 class="">Followers</h3>
+        {{profile.followers.all.count}}
+        <!-- {% for i in profile.following.all %}
+          <p>{{i}}</p>
+          {% endfor %}   -->
+      </div>
+    </a>
+    <a style="text-decoration: none; color: var(--clr-light);">
+      <div class="following__count">
+        <h3 class="">Following</h3>
+        {{profile.following.all.count}}
+      </div>
+    </a>
     <a style="text-decoration: none; color: var(--clr-light);" href="{% url 'savedd' profile.user %}">
       <div class="saved__count">
         <h3 class="">Saved</h3>
@@ -214,17 +218,17 @@
       </script>
     {% endfor %}
     {% else %}
-    <div class="graph-container">
+    <!-- <div class="graph-container">
       <div class="bar-chart">
-        <!-- Loop through screen time data to generate bars -->
+        #Loop through screen time data to generate bars
         {% for day, time_spent in bar_data.items %}
         <div class="bar">
           {{ day }}
-          <div class="bar-fill" style='height: calc( {{ time_spent }} / 12 * 400px); '></div>
+          #<div class="bar-fill" style='height: calc( {{ time_spent }} / 12 * 400px); '></div>
         </div>
         {% endfor %}
       </div>
-    </div>
+    </div> -->
     {% endif %}
     <br>
     <br>

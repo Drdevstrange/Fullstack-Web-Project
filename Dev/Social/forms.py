@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from django.core.exceptions import ValidationError
 # from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.models import User
 # Create your Forms here
@@ -16,10 +17,10 @@ from .models import *
 
 
 class NewPostForm(forms.ModelForm):
-    picture = forms.ImageField(required=True)
     caption = forms.CharField(widget=forms.Textarea(attrs={'class':'post-input', 'placeholder': 'Caption', 'rows' : '1'}), required=True)
     tag = forms.CharField(widget=forms.TextInput(attrs={'class': 'tag-input', 'placeholder': '# Tags'}), required=True)
-    picture = forms.ImageField(required=True, widget=forms.ClearableFileInput(attrs={'class': 'image-input'}))
+    picture = forms.FileField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'image-input'}))
+
     class Meta:
         model = Post
         fields = ['picture', 'caption', 'tag']

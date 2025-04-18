@@ -39,7 +39,7 @@ class Post(models.Model):
     caption = models.CharField(max_length=10000,null=True,blank=True)
     tag = models.ManyToManyField(Tag,blank=True)
     picture = models.ImageField(upload_to=user_directory_path, verbose_name="Picture", null=True,  blank=True)
-    video = models.FileField(upload_to=user_directory_path, null=True, blank=True)
+    video = models.FileField(upload_to='videos/', null=True, blank=True)
     posted = models.DateTimeField(auto_now_add=True)
     
     likes = models.ManyToManyField(User,related_name='liked_by',blank=True)
@@ -65,6 +65,7 @@ class Profile(models.Model):
     image = models.ImageField(upload_to=user_directory_path, blank=True, null=True ,verbose_name='Picture')   
     saved = models.ManyToManyField(Post,blank=True, related_name='saved') 
     created = models.DateField(auto_now_add=True)
+    last_activity = models.DateTimeField(blank=True, null=True)
     
     
     def __str__(self):

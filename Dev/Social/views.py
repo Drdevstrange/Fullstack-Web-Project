@@ -51,6 +51,7 @@ def signin(request):
             login(request, user)
             profile=Profile.objects.get(user=request.user)
             profile.status=True
+            profile.last_activity = timezone.now()
             profile.save()
             screen_time = ScreenTime.objects.create(user=user,login_time = timezone.now())
             return redirect(feed)
@@ -99,9 +100,9 @@ def signout(request):
     # Record logout time
     user = request.user
     if user.is_authenticated:
-        screen_time= ScreenTime.objects.filter(user=user).latest('user')
-        screen_time.logout_time = timezone.now()
-        screen_time.update_time_spent()
+        # screen_time= ScreenTime.objects.filter(user=user).latest('user')
+        # screen_time.logout_time = timezone.now()
+        # screen_time.update_time_spent()
 
         profile=Profile.objects.get(user=request.user)
         profile.status=False
@@ -306,21 +307,48 @@ def NewPost(request):
 
     if request.method == "POST":
         form = NewPostForm(request.POST, request.FILES)
+        print(request.FILES)
+        print('errors are:')
+        print(form.errors) 
+        print('end of errors')
         if form.is_valid():
             picture = form.cleaned_data.get('picture')
-            caption = request.POST.get('caption')
-            tag_form = request.POST.get('tag')
-            tags_list = list(tag_form.split(' '))
+            if picture.content_type in ['image/jpeg', 'image/png']:
+                postpic = picture
+                caption = request.POST.get('caption')
+                tag_form = request.POST.get('tag')
+                tags_list = list(tag_form.split(' '))
 
-            for tag in tags_list:
-                t, created = Tag.objects.get_or_create(title=tag)
-                tags_objs.append(t)
-            p, created = Post.objects.get_or_create(picture=picture, caption=caption, user_id=user)
-            p.tag.set(tags_objs)
-            p.save()
-        return redirect('feed')
+                for tag in tags_list:
+                    t, created = Tag.objects.get_or_create(title=tag)
+                    tags_objs.append(t)
+                p, created = Post.objects.get_or_create(
+                    picture=postpic, video=None, caption=caption, user_id=user)
+                p.tag.set(tags_objs)
+                p.save()
+                print(request.FILES)
+                return redirect('feed')
+            else:
+                postvid = picture
+                caption = request.POST.get('caption')
+                tag_form = request.POST.get('tag')
+                tags_list = list(tag_form.split(' '))
+
+                for tag in tags_list:
+                    t, created = Tag.objects.get_or_create(title=tag)
+                    tags_objs.append(t)
+                p, created = Post.objects.get_or_create(
+                    picture=None, video=postvid, caption=caption, user_id=user)
+                p.tag.set(tags_objs)
+                p.save()
+                print(request.FILES)
+                return redirect('feed')
+        else:
+            print('Form validation failed')
+            print(form.errors)
     else:
         form = NewPostForm()
+        print('failed')
     context = {
         'form': form
     }

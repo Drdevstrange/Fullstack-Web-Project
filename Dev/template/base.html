@@ -36,9 +36,9 @@
     <meta name="keywords" content="web design, html, css, js" />
     <title>{% block title %}{% endblock %}Home</title>
   </head>
-  <body class="color-change-2x">
+  <body>
     
-    <div id="blob"></div>
+    <!-- <div id="blob"></div> -->
     <main class="main-hero">
       <div class="top-section">
         {% include 'header.html' %}
@@ -54,17 +54,17 @@
     <script  src="{% static 'javascript/menu.js' %}"></script>
     <!-- <script  src="{% static 'javascript/glow.js' %}"></script> -->
     <script>
-      /* -- Glow effect -- */
-      const blob = document.getElementById("blob");
+      // /* -- Glow effect -- */
+      // const blob = document.getElementById("blob");
 
-      window.onpointermove = event => { 
-        const { clientX, clientY } = event;
+      // window.onpointermove = event => { 
+      //   const { clientX, clientY } = event;
         
-        blob.animate({
-          left: `${clientX}px`,
-          top: `${clientY}px`
-        }, { duration: 9000, fill: "forwards" });
-      }
+      //   blob.animate({
+      //     left: `${clientX}px`,
+      //     top: `${clientY}px`
+      //   }, { duration: 9000, fill: "forwards" });
+      // }
       // Enable hidden nav bar
       {
         const nav = document.querySelector(".top-section");

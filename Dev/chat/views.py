@@ -17,11 +17,12 @@ def checkonline(request):
 def dm(request):
     status=checkonline(request)
     print(status)
+    
     threads = Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').order_by('timestamp')
     context = {
         'Threads' : threads
     }
-    return render(request, 'inbox.html', context)
+    return render(request, 'inbox1.html', context)
 
 def sample(request):
     threads = Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread')
