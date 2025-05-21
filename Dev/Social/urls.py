@@ -20,6 +20,7 @@ urlpatterns = [
 
     
     path('newpost',views.NewPost,name='newpost'), 
+    path('deletepost/<int:post_id>',views.delete_post,name='deletepost'),
     path('newtweet', views.createtweet, name='newtweet'),
     
     path('@<username>', views.profile, name='profilee'),

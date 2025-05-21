@@ -74,7 +74,7 @@
               <li id="theme-toggle"><a href="#">Darkmode</a></li>
               <li><a href="{% url 'password_change' %}">Change Password</a></li>
               <li><a href="{% url 'notifications' %}">Notifications</a></li>
-              <li><a href="{% url 'screentime' request.user.username %}">Screen Time</a></li>
+              <li><a href="{% url 'savedd' request.user %}">Saved</a></li>
               <li><a href="{% url 'signout'  %}">Signout</a></li>
             </ul>
           </button>
@@ -139,6 +139,9 @@
           </li>
           <li>
             <a href="{% url 'notifications' %}">Notifications</a>
+          </li>
+          <li>
+            <a href="{% url 'savedd' request.user %}">Saved</a>
           </li>
           <li>
             <a href="{% url 'signout'  %}">Signout</a>

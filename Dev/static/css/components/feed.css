@@ -104,6 +104,12 @@
 .user-profile{
     display: flex;
     align-items: center;
+    /* justify-content: space-between; */
+}
+
+.user-profile-icons{
+    display: flex;
+    align-items: center;
 }
 
 .user-profile img{

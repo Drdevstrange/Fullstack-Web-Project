@@ -13,6 +13,8 @@
 {% if user.is_authenticated %}
     <input id="logged-in-user" type="hidden" value="{{ user.id }}">
 {% endif %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/chat-mobile.css' %}">
 <section class="chat-hero">
     <div class="left-side">
         <div class="chat-header" style="border-top-right-radius: 0;" >
@@ -100,13 +102,17 @@
             {% else %}
                 {{ thread.first_person.id }}
             {% endif %}
-            ">
-            <div class="chat-header" style="border-top-left-radius: 0;">
+            ">            <div class="chat-header" style="border-top-left-radius: 0;">
+                <div class="back-button mobile-only">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                        <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
+                    </svg>
+                </div>
                 <div class="imgtext">
                     {% if thread.first_person == user %}
-                        <img class="chat-dp" src="/{{ thread.second_person.profile.image}}" alt="">
+                        <img class="chat-dp" src="/{{ thread.second_person.profile.image}}" alt="" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;">
                     {% else %}
-                        <img class="chat-dp" src="/{{ thread.first_person.profile.image}}" alt="">
+                        <img class="chat-dp" src="/{{ thread.first_person.profile.image}}" alt="" onerror="this.src=`{% static 'images/dpplaceholder.png' %}` ;">
                     {% endif %}
                     <!-- <img class="chat-dp" src="/{{ thread.second_person.profile.image}}" alt=""> -->
                     {% if thread.first_person != request.user %}
@@ -187,5 +193,6 @@
             </form>
     </div>
 </section>
+<script src="{% static 'javascript/chat-mobile.js' %}"></script>
 <script src="{% static 'javascript/messages.js' %}"></script>
 {% endblock %}

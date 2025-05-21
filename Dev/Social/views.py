@@ -354,6 +354,26 @@ def NewPost(request):
     }
     return render(request, 'newpost.html', context)
 
+# def deletetweet(request,id):
+#     if not request.user.is_authenticated:
+#         redirect('/user/login')    
+#     if request.method=="POST":
+#         twt=Tweet.objects.get(id=id)
+#         twt.delete()
+#         return redirect(userprofile)
+        
+#     q=Tweet.objects.get(id=id)
+#     return render(request,'Tweet/deletetweet.html',{'context':q})
+
+# Delete Post
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.user == post.user:
+        post.delete()
+        return redirect('feed')
+    return HttpResponseRedirect(reverse('feed'))
+
 #Detailed Post page
 def PostDetail(request,username,slug):
     post = get_object_or_404(Post, slug=slug)
