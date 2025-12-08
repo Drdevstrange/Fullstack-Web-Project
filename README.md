@@ -1,11 +1,5 @@
-# Newproject
- Please make sure to remove the s from the https cloud link to visit the site deployed on cloud
-
- The link is : http://ec2-13-53-131-130.eu-north-1.compute.amazonaws.com:8000/
-
- Please use the command : pip install -r requirements.txt
- to install all the required packages
-
+Please use the command : pip install -r requirements.txt
+to install all the required packages
 This git is part of a coursework on Advanced Web Challenges by Msc Team 4 group members :
 
 Devadhathan Pothabuchirakal Manoj
